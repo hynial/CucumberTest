@@ -1,3 +1,4 @@
+@beer
 Feature: BeerCans
   write sth about beer cans feature
 
