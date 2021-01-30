@@ -19,12 +19,12 @@ import java.util.Map;
         tags = "",
         publish = false
 )
-public class TestRunner extends AbstractTestNGCucumberTests {
+public class TestNGRunner extends AbstractTestNGCucumberTests {
     public static Map options;
 
     @BeforeSuite
     public void setupSuite() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
-        Class<?> target = Thread.currentThread().getContextClassLoader().loadClass("com.hynial.cucumber.TestRunner");
+        Class<?> target = Thread.currentThread().getContextClassLoader().loadClass("com.hynial.cucumber.TestNGRunner");
         final CucumberOptions annotation = (CucumberOptions) target.getAnnotation(CucumberOptions.class);
         InvocationHandler handler = Proxy.getInvocationHandler(annotation);
 

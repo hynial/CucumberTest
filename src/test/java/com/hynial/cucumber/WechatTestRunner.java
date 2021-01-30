@@ -1,5 +1,5 @@
 package com.hynial.cucumber;
 
-public class WechatTestRunner extends TestRunner {
+public class WechatTestRunner extends TestNGRunner {
 
 }
