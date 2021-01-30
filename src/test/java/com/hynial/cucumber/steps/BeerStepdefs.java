@@ -1,4 +1,4 @@
-package com.hynial.cucumber;
+package com.hynial.cucumber.steps;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
@@ -80,7 +80,7 @@ public class BeerStepdefs {
             try {
                 titleEle = (MobileElement) driver.findElementById(firstTitleId);
             } catch (NoSuchElementException e) {
-                System.out.println(e.getMessage());
+                // System.out.println(e.getMessage());
             }
             count++;
         }
