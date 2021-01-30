@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
         snippets= CucumberOptions.SnippetType.CAMELCASE,
         features = {"src/test/resources/features"},
         glue = {"com.hynial.cucumber.steps"},
-        tags = ""
+        tags = "@wechat"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
