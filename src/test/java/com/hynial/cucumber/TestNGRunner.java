@@ -1,5 +1,6 @@
 package com.hynial.cucumber;
 
+import com.hynial.cucumber.attach.AppiumDebugHelp;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.BeforeSuite;
@@ -20,6 +21,11 @@ import java.util.Map;
         publish = false
 )
 public class TestNGRunner extends AbstractTestNGCucumberTests {
+    public TestNGRunner() {
+        System.out.println("artifact class.");
+        new AppiumDebugHelp().artifactClass();
+    }
+
     public static Map options;
 
     @BeforeSuite
