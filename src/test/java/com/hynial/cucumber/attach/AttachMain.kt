@@ -16,5 +16,8 @@ fun main(args: Array<String>){
 
 fun enjoy(driver: Any){
     val appiumDriver = driver as AppiumDriver<*>
-    println(appiumDriver.pageSource)
+//    println(appiumDriver.pageSource)
+
+    var attachAction = AttachAction(appiumDriver)
+    attachAction.action()
 }

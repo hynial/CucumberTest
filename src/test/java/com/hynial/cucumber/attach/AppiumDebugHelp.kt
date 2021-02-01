@@ -47,6 +47,7 @@ class AppiumDebugHelp() {
 
     /**
      * first step before load class, u can put in the testng class's construct
+     * don't have any instance loaded for the will be artifact classes. especially the main class's method parameter.
      */
     fun artifactClass(){
         val classPool = ClassPool.getDefault()
