@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 public class WechatContactStepdefs {
     @Given("start wechat")
     public void startWechat() {
-        System.out.println("Starting");
+        System.out.println("Wechat Starting");
     }
 
     @And("^go to (wechat|contact|discover|me) menu$")
@@ -18,6 +18,7 @@ public class WechatContactStepdefs {
 
     @When("loop all contacts")
     public void loopAllContacts() {
+
     }
 
     @Then("save or print contacts info")
