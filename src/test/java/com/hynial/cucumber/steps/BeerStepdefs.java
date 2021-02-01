@@ -173,7 +173,10 @@ public class BeerStepdefs {
                 }
 
                 for (MobileElement telTextEle : telephoneElements) {
-                    if (telTextEle == null) continue;
+                    if (telTextEle == null) {
+                        driver.navigate().back();
+                        continue;
+                    }
                     System.out.println(telTextEle.getText());
                 }
                 driver.navigate().back();
@@ -187,5 +190,10 @@ public class BeerStepdefs {
 
             loopIndex++;
         }
+    }
+
+
+    public void scrollAndClick(String visibleText) {
+        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""+visibleText+"\").instance(0))").click();
     }
 }
