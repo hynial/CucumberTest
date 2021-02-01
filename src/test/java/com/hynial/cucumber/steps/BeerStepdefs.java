@@ -23,6 +23,7 @@ public class BeerStepdefs {
     private AndroidDriver driver;
 
     private static long REMOTE_DRIVER_CREATE_CONSUME = 0l;
+
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
@@ -51,21 +52,21 @@ public class BeerStepdefs {
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
         long end = System.currentTimeMillis();
         REMOTE_DRIVER_CREATE_CONSUME = end - start;
-        System.out.println("SpendSeconds:" + REMOTE_DRIVER_CREATE_CONSUME/1000.0);
+        System.out.println("SpendSeconds:" + REMOTE_DRIVER_CREATE_CONSUME / 1000.0);
 
-        if(driver.isDeviceLocked()){
+        if (driver.isDeviceLocked()) {
             System.out.println("unlocking");
             driver.unlockDevice();
 
             Dimension dim = driver.manage().window().getSize();
             int height = dim.getHeight();
             int width = dim.getWidth();
-            int x = width/2;
+            int x = width / 2;
 
-            int top_y = (int)(height*0.01);
-            int bottom_y = (int)(height*0.90);
+            int top_y = (int) (height * 0.01);
+            int bottom_y = (int) (height * 0.90);
             int duration = 3000;
-            System.out.println("coordinates :" + x + "  "+ top_y + " "+ bottom_y);
+            System.out.println("coordinates :" + x + "  " + top_y + " " + bottom_y);
             TouchAction ts = new TouchAction(driver);
             //
             ts.press(PointOption.point(x, bottom_y))
@@ -138,11 +139,11 @@ public class BeerStepdefs {
         this.driver.quit();
     }
 
-    private void scrollAction(Dimension dim, MobileElement bottomBand, MobileElement topTitleBand){
+    private void scrollAction(Dimension dim, MobileElement bottomBand, MobileElement topTitleBand) {
         boolean seeTheBottom = false;
 
         int loopIndex = 0;
-        while(!seeTheBottom) {
+        while (!seeTheBottom) {
             try {
                 MobileElement bottomElement = (MobileElement) driver.findElementById("com.tencent.mm:id/ba5");
                 if (bottomElement != null) {
@@ -152,7 +153,7 @@ public class BeerStepdefs {
                         seeTheBottom = true;
                     }
                 }
-            } catch (NoSuchElementException noSuchElementException){
+            } catch (NoSuchElementException noSuchElementException) {
 
             }
 
@@ -182,7 +183,7 @@ public class BeerStepdefs {
             TouchAction actions = new TouchAction(driver);
             actions.press(PointOption.point(dim.getWidth() / 2, dim.getHeight() - bottomBand.getRect().getHeight() - 5))
                     .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
-                    .moveTo(PointOption.point(dim.getWidth()/2, topTitleBand.getRect().getHeight() + 100)).release().perform();
+                    .moveTo(PointOption.point(dim.getWidth() / 2, topTitleBand.getRect().getHeight() + 100)).release().perform();
 
             loopIndex++;
         }
