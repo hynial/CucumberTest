@@ -127,8 +127,6 @@ public class BeerStepdefs {
         System.out.println("eating");
 
         Dimension dim = driver.manage().window().getSize();
-        int height = dim.getHeight();
-        int width = dim.getWidth();
 
         MobileElement bottomBand = (MobileElement) driver.findElementById("com.tencent.mm:id/e8y");
         MobileElement topTitleBand = (MobileElement) driver.findElementById("com.tencent.mm:id/c_");
