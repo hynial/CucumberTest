@@ -63,6 +63,7 @@ public class AndroidCapabilities extends BaseCapabilities {
         desiredCapabilities.setCapability(UNICODE_KEYBOARD, this.isUnicodeKeyboard());
         desiredCapabilities.setCapability(RESET_KEYBOARD, this.isResetKeyboard());
 
+        // windowSoftInputMode="stateUnchanged|adjustResize" stateHidden Thread.sleep(250); closeSoftKeyboard
         return desiredCapabilities;
     }
 
