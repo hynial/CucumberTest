@@ -1,5 +1,8 @@
 package com.hynial.wechat.entity;
 
+import com.hynial.wechat.entity.extract.iextract.IExtractor;
+import com.hynial.wechat.entity.extract.impl.XpathExtractor;
+import com.hynial.wechat.entity.search.XpathInfo;
 import lombok.Data;
 
 import java.util.*;
@@ -9,6 +12,14 @@ import java.util.stream.Collectors;
 public class WechatInfo {
     public static String ALIAS_NAME = "ALIAS_NAME";
     public static String ALIAS_VALUE = "ALIAS_VALUE";
+    public static String EXTRACT_OBJ = "EXTRACT_OBJ";
+
+    public static String WECHAT_ID_ALIAS = "wechat id";
+    public static String NICKNAME_ALIAS = "nickname";
+    public static String SEX_ALIAS = "sex";
+    public static String REMARK_ALIAS = "remark";
+    public static String LOCATION_ALIAS = "location";
+    public static String PERSONAL_SIGN_ALIAS = "personal sign";
 
     /*private List<Map<String, Object>> fieldList = new ArrayList<Map<String, Object>>() {{
         add(Collections.singletonMap(ALIAS_NAME, "wechat id")); // 微信号
@@ -20,10 +31,30 @@ public class WechatInfo {
 
     }};*/
 
+    private Map<String, Object> createMap(){
+        return new HashMap<>();
+    }
+    private Map<String, Object> createXpathMap(String xpath, boolean isList, boolean isSearchById, String attr){
+        Map<String, Object> map =  new HashMap<>();
+        map.put(EXTRACT_OBJ, new XpathExtractor(new XpathInfo(xpath, isList, isSearchById).setExtractAttribute(attr)));
+        return map;
+    }
+
+    private Map<String, Object> createXpathIdMap(String xpath){
+        return createXpathMap(xpath, false, true, "text");
+    }
+
+    private Map<String, Object> createXpathAttrIdMap(String xpath, String attr){
+        return createXpathMap(xpath, false, true, attr);
+    }
+
     private Map<String, Map<String, Object>> fieldMap = new HashMap<>(){{
-        put("wechat id", new HashMap<>());
-        put("nickname", new HashMap<>());
-        put("location", new HashMap<>());
+        put(WECHAT_ID_ALIAS,createXpathIdMap("com.tencent.mm:id/bd_"));
+        put(NICKNAME_ALIAS, createXpathIdMap("com.tencent.mm:id/bd1"));
+        put(LOCATION_ALIAS, createMap());
+        put(SEX_ALIAS, createXpathAttrIdMap("com.tencent.mm:id/bd7", "content-desc"));
+        put(REMARK_ALIAS, createXpathIdMap("com.tencent.mm:id/bbc")); // 备注
+        put(PERSONAL_SIGN_ALIAS, createMap()); // 个性签名
     }};
 
     public WechatInfo() {
@@ -55,16 +86,18 @@ public class WechatInfo {
     }
 
     public List<String> getListStringByAlias(String alias){
-        Object value = getObjectByAlias(alias);
-        if(value == null) return null;
-        if(value instanceof List<?>){
-            return ((List<Object>) value).stream().map(o -> (o == null ? "" : o.toString())).collect(Collectors.toList());
-        }else{
-            throw new RuntimeException("NotAList!");
-        }
+        return getListObjectByAlias(alias).stream().map(o -> (o == null ? "" : o.toString())).collect(Collectors.toList());
     }
 
     public void setAliasValue(String alias, Object obj){
         this.fieldMap.get(alias).put(ALIAS_VALUE, obj);
+    }
+
+    public IExtractor getExtractorByAlias(String alias){
+        return (IExtractor) this.fieldMap.get(alias).get(EXTRACT_OBJ);
+    }
+
+    public void setAliasExecutedValue(String alias){
+        setAliasValue(alias, getExtractorByAlias(alias).execute().getValue());
     }
 }

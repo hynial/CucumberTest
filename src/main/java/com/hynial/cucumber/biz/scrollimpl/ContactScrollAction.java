@@ -1,11 +1,14 @@
 package com.hynial.cucumber.biz.scrollimpl;
 
 import com.hynial.cucumber.biz.iscroll.AbstractScrollAction;
+import com.hynial.wechat.entity.WechatInfo;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactScrollAction extends AbstractScrollAction {
     private int loopIndex = 0;
@@ -40,22 +43,36 @@ public class ContactScrollAction extends AbstractScrollAction {
             MobileElement linearElement = contactsLinearList.get(i);
             linearElement.click();
 
+            // wechat id
+            WechatInfo wechatInfo = new WechatInfo();
+            wechatInfo.setAliasExecutedValue(WechatInfo.WECHAT_ID_ALIAS);
             List<MobileElement> telephoneElements = driver.findElementsByXPath("//android.widget.TextView[@text='电话号码']/following-sibling::android.widget.LinearLayout/android.widget.TextView");
             if (telephoneElements == null || telephoneElements.size() == 0) {
-                driver.navigate().back();
+                back();
                 continue;
             }
 
             for (MobileElement telTextEle : telephoneElements) {
                 if (telTextEle == null) {
-                    driver.navigate().back();
+                    back();
                     continue;
                 }
+
                 System.out.println(telTextEle.getText());
             }
-            driver.navigate().back();
+            back();
         }
 
         loopIndex++;
+    }
+
+    private Map<String, WechatInfo> wechatInfoMap = new HashMap<>();
+
+    public Map<String, WechatInfo> getWechatInfoMap(){
+        return wechatInfoMap;
+    }
+
+    private void back(){
+        driver.navigate().back();
     }
 }

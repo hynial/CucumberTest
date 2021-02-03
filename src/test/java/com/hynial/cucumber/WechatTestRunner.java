@@ -30,6 +30,7 @@ public class WechatTestRunner extends TestNGRunner {
 
         AndroidDriver driver = (AndroidDriver) AppiumFactory.getDriver();
         if (driver.isDeviceLocked()) {
+            System.out.println("unlocking");
             driver.unlockDevice();
 
             Dimension dim = driver.manage().window().getSize();
@@ -46,13 +47,16 @@ public class WechatTestRunner extends TestNGRunner {
     }
     @BeforeClass
     private void beforeClass(){
-        // create driver.
-        // AppiumFactory.produce(new AndroidCreateDriver(ConfigLoader.getInstance()));
-
-        // attach connection
-        AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("9e902769-aa90-4952-abb8-3a172e959cbc");
-        AppiumFactory.setDriver(appiumDebugHelp.attachSession());
-
+        boolean isAttach = true;
+//        isAttach = false;
+        if(!isAttach) {
+            // create driver.
+            AppiumFactory.produce(new AndroidCreateDriver(ConfigLoader.getInstance()));
+        }else {
+            // attach connection
+            AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("e7af5fbc-3a53-449f-927c-8cb44383a4a5");
+            AppiumFactory.setDriver(appiumDebugHelp.attachSession());
+        }
         // unlock
         unlockDevice();
 
@@ -62,6 +66,5 @@ public class WechatTestRunner extends TestNGRunner {
     private void customize(){
         AppiumDriver appiumDriver = AppiumFactory.getDriver();
 
-        System.out.println(((AndroidDriver)appiumDriver).getRemoteAddress().toString());
     }
 }
