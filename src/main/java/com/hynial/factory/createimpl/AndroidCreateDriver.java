@@ -1,6 +1,5 @@
 package com.hynial.factory.createimpl;
 
-import com.google.inject.Inject;
 import com.hynial.cucumber.config.ConfigLoader;
 import com.hynial.factory.icreate.ICreateDriver;
 import io.appium.java_client.AppiumDriver;
@@ -27,8 +26,10 @@ public class AndroidCreateDriver implements ICreateDriver {
             remoteUrl = new URL(configLoader.loadAppiumInfo().getAppiumUrl());
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return new AndroidDriver(remoteUrl, desiredCapabilities);
+        AppiumDriver appiumDriver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        System.out.println("SessionId:" + appiumDriver.getSessionId() + ", RemoteUrl:" + appiumDriver.getRemoteAddress().toString());
+        return appiumDriver;
     }
 }

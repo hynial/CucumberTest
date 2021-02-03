@@ -14,8 +14,7 @@ public class WechatContactStepdefs {
     @Given("start wechat")
     public void startWechat() {
         System.out.println("Wechat Starting");
-        System.out.println(world.word());
-//        System.out.println(world.getAppiumDriver().getPageSource());
+        System.out.println(world.getAppiumDriver().getPageSource());
     }
 
     @And("^go to (wechat|contact|discover|me) menu$")
