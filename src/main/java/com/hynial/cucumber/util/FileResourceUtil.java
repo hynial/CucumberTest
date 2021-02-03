@@ -34,12 +34,13 @@ public class FileResourceUtil {
     }
 
     private ClassLoader getClassLoader(){
+//        return Thread.currentThread().getContextClassLoader();
         return getClass().getClassLoader();
     }
 
     public List<File> getFilesFromResourceBySuffix(String folder, String suffix) throws URISyntaxException, IOException {
         URL resource = getClassLoader().getResource(folder);
-        List<File> collect = Files.walk(Paths.get(resource.toURI()))
+        List<File> collect = Files.walk(Paths.get(resource.toURI()), 1)
                 .filter(path -> path.getFileName().toString().toLowerCase().endsWith(suffix.toLowerCase()))
                 .map(x -> x.toFile())
                 .collect(Collectors.toList());

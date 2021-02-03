@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class PropertyUtil {
 
-    private static Properties getProperties(String bundleFolder){
+    public static Properties getProperties(String bundleFolder){
         Properties properties = new Properties();
         try {
             FileResourceUtil fileResourceUtil = new FileResourceUtil();
@@ -31,6 +31,32 @@ public class PropertyUtil {
         }
 
         return properties;
+    }
+
+    private Properties instanceProperties;
+
+    public PropertyUtil(Properties instanceProperties) {
+        this.instanceProperties = instanceProperties;
+    }
+
+    public String getString(String key){
+        return this.instanceProperties.getProperty(key);
+    }
+
+    public boolean getBoolean(String key){
+        return Boolean.parseBoolean(this.instanceProperties.getProperty(key));
+    }
+
+    public int getInt(String key){
+        return Integer.parseInt(this.instanceProperties.getProperty(key));
+    }
+
+    public long getLong(String key){
+        return Long.parseLong(this.instanceProperties.getProperty(key));
+    }
+
+    public double getDouble(String key){
+        return Double.parseDouble(this.instanceProperties.getProperty(key));
     }
 
     public static void main(String[] args) {
