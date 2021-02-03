@@ -2,6 +2,7 @@ package com.hynial.wechat.support;
 
 import com.hynial.factory.AppiumFactory;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.guice.ScenarioScoped;
 
 // Scenario scoped it is used to show Guice
@@ -10,5 +11,13 @@ import io.cucumber.guice.ScenarioScoped;
 public class World {
     public AppiumDriver getAppiumDriver(){
         return AppiumFactory.getDriver();
+    }
+
+    public boolean isAndroid(){
+        if(getAppiumDriver() instanceof AndroidDriver){
+            return true;
+        }
+
+        return false;
     }
 }
