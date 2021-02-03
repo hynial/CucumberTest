@@ -42,9 +42,10 @@ public class AndroidCapabilities extends BaseCapabilities {
     public DesiredCapabilities getDesiredCapabilities(){
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
+        // 锁屏下打不开APP
 //        desiredCapabilities.setCapability(AndroidCapabilities.APP, this.getAppPath());
-        desiredCapabilities.setCapability(AndroidCapabilities.APP_PACKAGE, this.getAppPackage());
-        desiredCapabilities.setCapability(AndroidCapabilities.APP_ACTIVITY, this.getAppActivity());
+//        desiredCapabilities.setCapability(AndroidCapabilities.APP_PACKAGE, this.getAppPackage());
+//        desiredCapabilities.setCapability(AndroidCapabilities.APP_ACTIVITY, this.getAppActivity());
 
         desiredCapabilities.setCapability(AndroidCapabilities.PLATFORM_NAME, this.getPlatformName());
         desiredCapabilities.setCapability(AndroidCapabilities.DEVICE_NAME, this.getDeviceName());
