@@ -100,4 +100,13 @@ public class WechatInfo {
     public void setAliasExecutedValue(String alias){
         setAliasValue(alias, getExtractorByAlias(alias).execute().getValue());
     }
+
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Map<String, Object> fieldMapValue : this.fieldMap.values()){
+            stringBuilder.append(fieldMapValue.get(ALIAS_NAME)).append(":").append(fieldMapValue.get(ALIAS_VALUE) == null ? "" : fieldMapValue.get(ALIAS_VALUE).toString()).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
 }
