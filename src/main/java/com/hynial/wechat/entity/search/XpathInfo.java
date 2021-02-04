@@ -37,7 +37,7 @@ public class XpathInfo {
     private MobileElement element;
     private List<MobileElement> elementList;
 
-    private String extractAttribute;
+    private String extractAttribute = "text";
 
     public XpathInfo setExtractAttribute(String extractAttribute){
         this.extractAttribute = extractAttribute;
