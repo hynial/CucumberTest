@@ -6,6 +6,7 @@ import com.hynial.wechat.entity.search.XpathInfo;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import lombok.Data;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
@@ -23,14 +24,19 @@ public class XpathExtractor implements IExtractor<String> {
     @Override
     public void extract() {
         // PageFactory.initElements(driver, this); // TODO
-        if(xpathInfo.isSearchById()){
-            xpathInfo.setElement((MobileElement) driver.findElementById(xpathInfo.getXpath()));
-        }else {
-            if (xpathInfo.isList()) {
-                xpathInfo.setElementList(driver.findElementsByXPath(xpathInfo.getXpath()));
+        try {
+            if (xpathInfo.isSearchById()) {
+                xpathInfo.setElement((MobileElement) driver.findElementById(xpathInfo.getXpath()));
             } else {
-                xpathInfo.setElement((MobileElement) driver.findElementByXPath(xpathInfo.getXpath()));
+                if (xpathInfo.isList()) {
+                    xpathInfo.setElementList(driver.findElementsByXPath(xpathInfo.getXpath()));
+                } else {
+                    xpathInfo.setElement((MobileElement) driver.findElementByXPath(xpathInfo.getXpath()));
+                }
             }
+        } catch (NoSuchElementException e){
+            e.printStackTrace();
+            //throw new RuntimeException(e); // set a field to change the behavior? TODO
         }
     }
 
