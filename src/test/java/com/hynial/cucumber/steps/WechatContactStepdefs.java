@@ -1,8 +1,12 @@
 package com.hynial.cucumber.steps;
 
 import com.google.inject.Inject;
+import com.hynial.cucumber.biz.exp.Map2csv;
 import com.hynial.cucumber.biz.scrollimpl.ContactScrollAction;
 import com.hynial.cucumber.config.ConfigLoader;
+import com.hynial.cucumber.util.BizUtil;
+import com.hynial.cucumber.util.CommonUtil;
+import com.hynial.wechat.entity.WechatInfo;
 import com.hynial.wechat.support.World;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -16,7 +20,11 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriverException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WechatContactStepdefs {
     @Inject
@@ -76,11 +84,28 @@ public class WechatContactStepdefs {
 
     @Then("save or print contacts info")
     public void saveOrPrintContactsInfo() {
-        ((HashMap) world.getScenarioMap("CollectedData")).forEach((x, y)->{
+        Map<String, WechatInfo> collectedMap = (Map<String, WechatInfo>) world.getScenarioMap("CollectedData");
+        collectedMap.forEach((x, y)->{
             System.out.println(y.toString());
         });
 
+        // test
+//        Map<String, WechatInfo> collectedMap = new HashMap<>();
+//        WechatInfo wechatInfo = new WechatInfo();
+//        wechatInfo.setAliasValue(WechatInfo.WECHAT_ID_ALIAS, "wechatid");
+//        wechatInfo.setAliasValue(WechatInfo.SEX_ALIAS, "男");
+//        wechatInfo.setAliasValue(WechatInfo.NICKNAME_ALIAS, "nick1");
+//        wechatInfo.setAliasValue(WechatInfo.MOBILE_ALIAS, new ArrayList<String>(List.of("123456","3454657657", "342343")));
+//        wechatInfo.setAliasValue(WechatInfo.REMARK_ALIAS, "晨桦");
+//        wechatInfo.setAliasValue(WechatInfo.DESCRIPTION_ALIAS, "我家来自");
+//
+//        collectedMap.put("", wechatInfo);
 
+        Map2csv map2csv = new Map2csv();
+        String csvLines = map2csv.map2csv(collectedMap);
+        String csvTitles = BizUtil.getCsvTitles().stream().collect(Collectors.joining(","));
+
+        CommonUtil.writeFileWithBom("output.csv", csvTitles + "\n" + csvLines);
         System.out.println("Data Collection. Done");
     }
 }

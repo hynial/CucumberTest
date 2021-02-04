@@ -54,7 +54,7 @@ public class WechatTestRunner extends TestNGRunner {
             AppiumFactory.produce(new AndroidCreateDriver(ConfigLoader.getInstance()));
         }else {
             // attach connection
-            AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("e7af5fbc-3a53-449f-927c-8cb44383a4a5");
+            AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("c7447bf1-e0a4-498a-9465-ea7d7ca6863d");
             AppiumFactory.setDriver(appiumDebugHelp.attachSession());
         }
         // unlock

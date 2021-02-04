@@ -40,6 +40,10 @@ public class ConfigLoader {
         return instance;
     }
 
+    public PropertyUtil getPropertyUtil(){
+        return this.propertyUtil;
+    }
+
     private AppiumInfo appiumInfo = new AppiumInfo(propertyUtil.getString(AppiumInfo.APPIUM_HOST), propertyUtil.getString(AppiumInfo.APPIUM_PORT));
     private AndroidCapabilities androidCapabilities = new AndroidCapabilities(propertyUtil);
 
