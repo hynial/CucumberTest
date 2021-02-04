@@ -14,6 +14,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriverException;
+
+import java.util.HashMap;
 
 public class WechatContactStepdefs {
     @Inject
@@ -38,6 +41,8 @@ public class WechatContactStepdefs {
                 titleEle = (MobileElement) world.getAppiumDriver().findElementById(firstTitleId);
             } catch (NoSuchElementException e) {
                 // System.out.println(e.getMessage());
+            } catch (WebDriverException e) {
+                // System.out.println(e.getMessage());
             }
             count++;
         }
@@ -60,16 +65,22 @@ public class WechatContactStepdefs {
         MobileElement topTitleBand = (MobileElement) driver.findElementById("com.tencent.mm:id/c_");
 
         int startX = dim.getWidth() / 2;
-        int startY = dim.getHeight() - bottomBand.getRect().getHeight() - 5;
+        int startY = dim.getHeight() - bottomBand.getRect().getHeight() - 20;
         int endX = dim.getWidth() / 2;
         int endY = topTitleBand.getRect().getHeight() + 100;
 
         ContactScrollAction contactScrollAction = new ContactScrollAction(world.getAppiumDriver(), startX, startY, endX, endY);
         contactScrollAction.scrollStart();
+        world.setScenarioMap("CollectedData", contactScrollAction.getWechatInfoMap());
     }
 
     @Then("save or print contacts info")
     public void saveOrPrintContactsInfo() {
+        ((HashMap) world.getScenarioMap("CollectedData")).forEach((x, y)->{
+            System.out.println(y.toString());
+        });
+
+
         System.out.println("Data Collection. Done");
     }
 }
