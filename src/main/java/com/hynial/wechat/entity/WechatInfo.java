@@ -97,6 +97,7 @@ public class WechatInfo {
 
     public void setRemarkTagPage(){
         setAliasExecutedValue(REMARK_ALIAS);
+        setAliasExecutedValue(DESCRIPTION_ALIAS);
     }
 
     public void setMoreInfoPage(){
