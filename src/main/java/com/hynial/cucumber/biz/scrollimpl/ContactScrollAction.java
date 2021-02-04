@@ -2,6 +2,7 @@ package com.hynial.cucumber.biz.scrollimpl;
 
 import com.hynial.cucumber.biz.exp.Map2csv;
 import com.hynial.cucumber.biz.iscroll.AbstractScrollAction;
+import com.hynial.cucumber.util.BizUtil;
 import com.hynial.cucumber.util.CommonUtil;
 import com.hynial.wechat.entity.WechatInfo;
 import io.appium.java_client.AppiumDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebDriverException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ContactScrollAction extends AbstractScrollAction {
     private int loopIndex = 0;
@@ -96,9 +98,10 @@ public class ContactScrollAction extends AbstractScrollAction {
             if(wechatInfoMap.get(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) == null){
                 wechatInfoMap.put(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS), wechatInfo);
                 // partial write to file
-                String record = map2csv.wechatInfo2String(wechatInfo);
+                String record = map2csv.wechatInfo2String(wechatInfo) + "\n";
                 if(writeIndex == 0){
-                    CommonUtil.writeFileWithBom(partialOutputPath, record);
+                    String csvTitles = BizUtil.getCsvTitles().stream().collect(Collectors.joining(","));
+                    CommonUtil.writeFileWithBom(partialOutputPath, csvTitles + "\n" + record);
                 }else{
                     CommonUtil.appendFile(partialOutputPath, record);
                 }
