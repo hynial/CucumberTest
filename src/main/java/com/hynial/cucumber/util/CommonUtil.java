@@ -46,4 +46,12 @@ public class CommonUtil {
             e.printStackTrace();
         }
     }
+
+    public static void appendFile(String outPath, String content){
+        try {
+            Files.writeString(Paths.get(outPath), content, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

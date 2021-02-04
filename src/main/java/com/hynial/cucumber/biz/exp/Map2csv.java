@@ -16,7 +16,7 @@ public class Map2csv {
         return result;
     }
 
-    private String wechatInfo2String(WechatInfo wechatInfo) {
+    public String wechatInfo2String(WechatInfo wechatInfo) {
         if(wechatInfo == null) return "";
         String line = "";
         List<String> titles = BizUtil.getCsvTitles();
