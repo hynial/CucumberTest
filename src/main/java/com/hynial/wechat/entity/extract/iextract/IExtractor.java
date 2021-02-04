@@ -26,4 +26,9 @@ public interface IExtractor<T> {
 
     T getValue();
 
+    default void click(){}
+
+    default boolean isElementExists(){
+        return true;
+    }
 }
