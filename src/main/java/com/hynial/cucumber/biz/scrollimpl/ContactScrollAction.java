@@ -59,13 +59,14 @@ public class ContactScrollAction extends AbstractScrollAction {
         // 跳过第一块标签
         for (int i = (loopIndex == 0 ? 1 : 0); i < contactsLinearList.size(); i++) {
             contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
+            if(contactsLinearList.size() <= i) break;
             MobileElement linearElement = contactsLinearList.get(i);
             try {
                 linearElement.click();
             } catch (StaleElementReferenceException staleElementReferenceException){
-                contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
-                linearElement = contactsLinearList.get(i);
-                linearElement.click();
+//                contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
+//                linearElement = contactsLinearList.get(i);
+//                linearElement.click();
             }
 
             // wechat id

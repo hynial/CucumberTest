@@ -33,7 +33,7 @@ public class CommonUtil {
             // add BOM head to avoid excel open encode error.
             byte[] BOM = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
             Files.write(Paths.get(outPath), BOM, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-            Files.writeString(Paths.get(outPath), content, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            Files.writeString(Paths.get(outPath), content, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class CommonUtil {
 
     public static void appendFile(String outPath, String content){
         try {
-            Files.writeString(Paths.get(outPath), content, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            Files.writeString(Paths.get(outPath), content, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }

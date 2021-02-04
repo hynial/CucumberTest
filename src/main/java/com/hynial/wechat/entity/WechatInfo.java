@@ -83,8 +83,10 @@ public class WechatInfo {
     }
 
     public boolean isContactPage(){
-        String title = (String) new XpathExtractor(new XpathInfo("android:id/text1", false, true)).execute().getValue();
-        return "通讯录".equals(title);
+//        String title = (String) new XpathExtractor(new XpathInfo("android:id/text1", false, true)).execute().getValue();
+//        return "通讯录".equals(title);
+
+        return isElementExists(new XpathInfo("//android.widget.TextView[@text='通讯录' and @resource-id='android:id/text1']", false, false));
     }
 
     public void setPersonalInfoPage(){
