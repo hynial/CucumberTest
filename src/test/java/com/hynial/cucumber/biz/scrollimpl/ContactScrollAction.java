@@ -1,15 +1,20 @@
 package com.hynial.cucumber.biz.scrollimpl;
 
+import com.google.inject.Inject;
 import com.hynial.cucumber.biz.exp.Map2csv;
 import com.hynial.cucumber.biz.iscroll.AbstractScrollAction;
+import com.hynial.cucumber.pages.PersonalInfoPage;
 import com.hynial.cucumber.util.BizUtil;
 import com.hynial.cucumber.util.CommonUtil;
 import com.hynial.wechat.entity.WechatInfo;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +24,9 @@ import java.util.stream.Collectors;
 public class ContactScrollAction extends AbstractScrollAction {
     private int loopIndex = 0;
     private int writeIndex = 0;
+
+    @Inject
+    private PersonalInfoPage personalInfoPage;
 
     private Map2csv map2csv = new Map2csv();
     private String partialOutputPath = "partialOutput.csv";
@@ -36,7 +44,13 @@ public class ContactScrollAction extends AbstractScrollAction {
     @Override
     public void isScrollEnd() {
         try {
-            MobileElement bottomElement = (MobileElement) driver.findElementById("com.tencent.mm:id/ba5");
+            String totalXpath = "com.tencent.mm:id/ba5";
+            // two methods to set the wait timeout.
+//            MobileElement bottomElement = (MobileElement) new FluentWait<>(AppiumFactory.getDriver())
+//                    .withTimeout(Duration.ofSeconds(5))
+//                    .pollingEvery(Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfElementLocated(By.id(totalXpath)));
+
+            MobileElement bottomElement = (MobileElement) (new WebDriverWait(driver, 1)).until(ExpectedConditions.presenceOfElementLocated(By.id(totalXpath)));
             if (bottomElement != null) {
                 String totalText = bottomElement.getText();
                 if (totalText != null) {
@@ -65,9 +79,7 @@ public class ContactScrollAction extends AbstractScrollAction {
             try {
                 linearElement.click();
             } catch (StaleElementReferenceException staleElementReferenceException) {
-//                contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
-//                linearElement = contactsLinearList.get(i);
-//                linearElement.click();
+                // wrong exception - not the actual exception, never appear here, see the appium log.
             }
 
             // wechat id
