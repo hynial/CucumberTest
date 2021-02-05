@@ -78,6 +78,7 @@ public class Map2csv {
                     vString = vString.replaceAll("添加更多备注信息", "")
                             .replaceAll("昵称:  ", "")
                             .replaceAll("地区:  ", "");
+                    vString = "\"" + vString + "\"";
                 }
                 line += vString + ",";
             }
