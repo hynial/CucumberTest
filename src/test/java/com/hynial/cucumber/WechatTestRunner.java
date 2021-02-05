@@ -48,13 +48,13 @@ public class WechatTestRunner extends TestNGRunner {
     @BeforeClass
     private void beforeClass(){
         boolean isAttach = true;
-//        isAttach = false;
+        isAttach = false;
         if(!isAttach) {
             // create driver.
             AppiumFactory.produce(new AndroidCreateDriver(ConfigLoader.getInstance()));
         }else {
             // attach connection
-            AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("c7447bf1-e0a4-498a-9465-ea7d7ca6863d");
+            AppiumDebugHelp appiumDebugHelp = new AppiumDebugHelp("f58e986d-7a8c-4db3-83bb-92d60ae486dc");
             AppiumFactory.setDriver(appiumDebugHelp.attachSession());
         }
         // unlock

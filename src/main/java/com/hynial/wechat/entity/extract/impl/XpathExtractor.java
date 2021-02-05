@@ -28,7 +28,6 @@ public class XpathExtractor implements IExtractor<Object> {
 
     @Override
     public void extract() {
-        // PageFactory.initElements(driver, this); // TODO
         try {
             if (xpathInfo.isSearchById()) {
                 xpathInfo.setElement((MobileElement) driver.findElementById(xpathInfo.getXpath()));
@@ -40,7 +39,7 @@ public class XpathExtractor implements IExtractor<Object> {
                 }
             }
         } catch (NoSuchElementException e){
-            e.printStackTrace();
+            //e.printStackTrace();
             //throw new RuntimeException(e); // set a field to change the behavior? TODO
         } catch (WebDriverException webDriverException){
 
