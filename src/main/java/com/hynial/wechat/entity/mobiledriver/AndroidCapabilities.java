@@ -51,6 +51,7 @@ public class AndroidCapabilities extends BaseCapabilities {
         desiredCapabilities.setCapability(AndroidCapabilities.DEVICE_NAME, this.getDeviceName());
         desiredCapabilities.setCapability(AndroidCapabilities.UDID, this.getUdid());
         desiredCapabilities.setCapability(AndroidCapabilities.AUTOMATION_NAME, this.getAutomationName());
+//        MobileCapabilityType.AUTOMATION_NAME
 
         desiredCapabilities.setCapability(AndroidCapabilities.ADB_EXEC_TIMEOUT, this.getAdbExecTimeout());
         desiredCapabilities.setCapability(AndroidCapabilities.NEW_COMMAND_TIMEOUT, this.getNewCommandTimeout());
