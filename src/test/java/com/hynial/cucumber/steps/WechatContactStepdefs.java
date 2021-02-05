@@ -79,7 +79,7 @@ public class WechatContactStepdefs {
         int startX = dim.getWidth() / 2;
         int startY = dim.getHeight() - bottomBand.getRect().getHeight() - 20;
         int endX = dim.getWidth() / 2;
-        int endY = topTitleBand.getRect().getHeight() + 100;
+        int endY = topTitleBand.getRect().getHeight() + 120;
 
         ContactScrollAction contactScrollAction = new ContactScrollAction(world.getAppiumDriver(), startX, startY, endX, endY);
         contactScrollAction.scrollStart();
