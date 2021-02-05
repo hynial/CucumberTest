@@ -30,8 +30,11 @@ public class WechatContactStepdefs {
     @Inject
     private World world;
 
+    private boolean stop = true;
+//    private boolean stop = false;
     @Given("start wechat")
     public void startWechat() {
+        if (this.stop) return ;
         System.out.println("Wechat Starting");
         if(world.isAndroid()) {
             ((AndroidDriver) world.getAppiumDriver()).startActivity(new Activity(ConfigLoader.getInstance().loadAndroidCapabilities().getAppPackage(), ConfigLoader.getInstance().loadAndroidCapabilities().getAppActivity()));
@@ -59,6 +62,7 @@ public class WechatContactStepdefs {
 
     @And("^go to (wechat|contact|discover|me) menu$")
     public void goToMenu(String menu) {
+        if (this.stop) return ;
         System.out.println(menu);
         world.getAppiumDriver().findElementByXPath(
                 "//android.widget.RelativeLayout[@resource-id='com.tencent.mm:id/e8y']/android.widget.LinearLayout/android.widget.RelativeLayout[2]")
