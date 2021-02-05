@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class AndroidCreateDriver implements ICreateDriver {
     private ConfigLoader configLoader;
@@ -29,7 +30,15 @@ public class AndroidCreateDriver implements ICreateDriver {
             throw new RuntimeException(e);
         }
         AppiumDriver appiumDriver = new AndroidDriver(remoteUrl, desiredCapabilities);
-        System.out.println("SessionId:" + appiumDriver.getSessionId() + ", RemoteUrl:" + appiumDriver.getRemoteAddress().toString());
+        initAppiumDriverSettings(appiumDriver);
+
+        String udid = appiumDriver.getCapabilities().getCapability("udid").toString();
+//        udid = desiredCapabilities.getCapability("udid").toString();
+        System.out.println("Udid:" + udid + ", SessionId:" + appiumDriver.getSessionId() + ", RemoteUrl:" + appiumDriver.getRemoteAddress().toString());
         return appiumDriver;
+    }
+
+    private void initAppiumDriverSettings(AppiumDriver appiumDriver){
+        appiumDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); // timeout setting https://devqa.io/webdriver-explicit-implicit-fluent-wait/
     }
 }
