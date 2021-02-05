@@ -22,13 +22,14 @@ public class ContactScrollAction extends AbstractScrollAction {
 
     private Map2csv map2csv = new Map2csv();
     private String partialOutputPath = "partialOutput.csv";
+
     public ContactScrollAction(AppiumDriver driver, int x1, int y1, int x2, int y2) {
         super(driver, x1, y1, x2, y2);
     }
 
     private Map<String, WechatInfo> wechatInfoMap = new HashMap<>();
 
-    public Map<String, WechatInfo> getWechatInfoMap(){
+    public Map<String, WechatInfo> getWechatInfoMap() {
         return wechatInfoMap;
     }
 
@@ -45,7 +46,7 @@ public class ContactScrollAction extends AbstractScrollAction {
             }
         } catch (NoSuchElementException noSuchElementException) {
 
-        } catch (WebDriverException webDriverException){
+        } catch (WebDriverException webDriverException) {
 
         }
     }
@@ -59,11 +60,11 @@ public class ContactScrollAction extends AbstractScrollAction {
         // 跳过第一块标签
         for (int i = (loopIndex == 0 ? 1 : 0); i < contactsLinearList.size(); i++) {
             contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
-            if(contactsLinearList.size() <= i) break;
+            if (contactsLinearList.size() <= i) break;
             MobileElement linearElement = contactsLinearList.get(i);
             try {
                 linearElement.click();
-            } catch (StaleElementReferenceException staleElementReferenceException){
+            } catch (StaleElementReferenceException staleElementReferenceException) {
 //                contactsLinearList = driver.findElementsByXPath("//android.widget.ListView[@resource-id='com.tencent.mm:id/h4']/android.widget.LinearLayout");
 //                linearElement = contactsLinearList.get(i);
 //                linearElement.click();
@@ -72,7 +73,7 @@ public class ContactScrollAction extends AbstractScrollAction {
             // wechat id
             WechatInfo wechatInfo = new WechatInfo();
             wechatInfo.setPersonalInfoPage();
-            if(CommonUtil.isEmpty(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) || wechatInfoMap.get(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) != null){
+            if (CommonUtil.isEmpty(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) || wechatInfoMap.get(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) != null) {
                 back();
                 continue;
             }
@@ -93,17 +94,18 @@ public class ContactScrollAction extends AbstractScrollAction {
 
             back();
             //sleep(250);
-            if(!wechatInfo.isContactPage()) {
+            if (!wechatInfo.isContactPage()) {
                 back();
             }
-            if(wechatInfoMap.get(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) == null){
+            if (wechatInfoMap.get(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS)) == null) {
                 wechatInfoMap.put(wechatInfo.getStringByAlias(WechatInfo.WECHAT_ID_ALIAS), wechatInfo);
                 // partial write to file
                 String record = map2csv.wechatInfo2String(wechatInfo) + "\n";
-                if(writeIndex == 0){
+
+                if (writeIndex == 0) {
                     String csvTitles = BizUtil.getCsvTitles().stream().collect(Collectors.joining(","));
                     CommonUtil.writeFileWithBom(partialOutputPath, csvTitles + "\n" + record);
-                }else{
+                } else {
                     CommonUtil.appendFile(partialOutputPath, record);
                 }
                 writeIndex++;
@@ -114,7 +116,7 @@ public class ContactScrollAction extends AbstractScrollAction {
         loopIndex++;
     }
 
-    private void back(){
+    private void back() {
         driver.navigate().back();
     }
 }
