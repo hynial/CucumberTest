@@ -4,11 +4,12 @@ import com.google.inject.Inject;
 import com.hynial.cucumber.biz.exp.Map2csv;
 import com.hynial.cucumber.biz.scrollimpl.ContactScrollAction;
 import com.hynial.cucumber.config.ConfigLoader;
+import com.hynial.cucumber.pages.ContactsPage;
+import com.hynial.cucumber.steps.base.BaseStep;
 import com.hynial.cucumber.util.BizUtil;
 import com.hynial.cucumber.util.CommonUtil;
 import com.hynial.wechat.entity.WechatInfo;
 import com.hynial.wechat.support.World;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
@@ -20,15 +21,15 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriverException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class WechatContactStepdefs {
+public class WechatContactStepdefs extends BaseStep {
     @Inject
     private World world;
+
+    @Inject
+    private ContactsPage contactsPage;
 
     private boolean stop = true;
 //    private boolean stop = false;
@@ -71,10 +72,11 @@ public class WechatContactStepdefs {
 
     @When("loop all contacts")
     public void loopAllContacts() {
-        AppiumDriver driver = world.getAppiumDriver();
         Dimension dim = driver.manage().window().getSize();
-        MobileElement bottomBand = (MobileElement) driver.findElementById("com.tencent.mm:id/e8y");
-        MobileElement topTitleBand = (MobileElement) driver.findElementById("com.tencent.mm:id/c_");
+//        MobileElement bottomBand = (MobileElement) driver.findElementById("com.tencent.mm:id/e8y");
+//        MobileElement topTitleBand = (MobileElement) driver.findElementById("com.tencent.mm:id/c_");
+        MobileElement bottomBand = contactsPage.getBottomBand();
+        MobileElement topTitleBand = contactsPage.getTopTitleBand();
 
         int startX = dim.getWidth() / 2;
         int startY = dim.getHeight() - bottomBand.getRect().getHeight() - 20;
