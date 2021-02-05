@@ -9,12 +9,10 @@ import lombok.Data;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Data
 public class XpathExtractor implements IExtractor<Object> {
@@ -40,7 +38,6 @@ public class XpathExtractor implements IExtractor<Object> {
             }
         } catch (NoSuchElementException e){
             //e.printStackTrace();
-            //throw new RuntimeException(e); // set a field to change the behavior? TODO
         } catch (WebDriverException webDriverException){
 
         }
