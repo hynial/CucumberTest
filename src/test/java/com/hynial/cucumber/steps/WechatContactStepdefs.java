@@ -72,7 +72,7 @@ public class WechatContactStepdefs extends BaseStep {
 
     @When("loop all contacts")
     public void loopAllContacts() {
-        Dimension dim = driver.manage().window().getSize();
+        Dimension dim = world.getAppiumDriver().manage().window().getSize();
 //        MobileElement bottomBand = (MobileElement) driver.findElementById("com.tencent.mm:id/e8y");
 //        MobileElement topTitleBand = (MobileElement) driver.findElementById("com.tencent.mm:id/c_");
         MobileElement bottomBand = contactsPage.getBottomBand();

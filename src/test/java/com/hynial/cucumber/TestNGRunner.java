@@ -1,7 +1,6 @@
 package com.hynial.cucumber;
 
 import com.hynial.cucumber.attach.AppiumDebugHelp;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
@@ -17,7 +16,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @CucumberOptions(
         dryRun = false,
@@ -119,11 +117,11 @@ public class TestNGRunner extends AbstractTestNGCucumberTests {
         }
     }
 
-    public static void changeDriverContextToWeb(AppiumDriver driver) {
+    /*public static void changeDriverContextToWeb(AppiumDriver driver) {
         Set<String> allContext = driver.getContextHandles();
         for (String context : allContext) {
             if (context.contains("WEBVIEW"))
                 driver.context(context);
         }
-    }
+    }*/
 }
