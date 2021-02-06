@@ -5,12 +5,16 @@ import com.hynial.factory.icreate.ICreateDriver;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class AndroidCreateDriver implements ICreateDriver {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     private ConfigLoader configLoader;
 
     public AndroidCreateDriver(ConfigLoader configLoader) {
@@ -19,6 +23,7 @@ public class AndroidCreateDriver implements ICreateDriver {
 
     @Override
     public AppiumDriver create() {
+        log.info("Start create");
         DesiredCapabilities desiredCapabilities = configLoader.loadAndroidCapabilities().getDesiredCapabilities();
         URL remoteUrl = null;
 
@@ -35,6 +40,7 @@ public class AndroidCreateDriver implements ICreateDriver {
         String udid = appiumDriver.getCapabilities().getCapability("udid").toString();
 //        udid = desiredCapabilities.getCapability("udid").toString();
         System.out.println("Udid:" + udid + ", SessionId:" + appiumDriver.getSessionId() + ", RemoteUrl:" + appiumDriver.getRemoteAddress().toString());
+        log.info("End create");
         return appiumDriver;
     }
 

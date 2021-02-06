@@ -19,7 +19,8 @@ import java.time.Duration;
 import java.util.function.Function;
 
 public abstract class BasePage {
-    protected Logger log = LoggerFactory.getLogger(this.getClass());
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     protected Wait<AppiumDriver> wait;
 
     protected AppiumDriver driver;
