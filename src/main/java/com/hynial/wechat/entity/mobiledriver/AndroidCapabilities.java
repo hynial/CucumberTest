@@ -56,6 +56,7 @@ public class AndroidCapabilities extends BaseCapabilities {
         desiredCapabilities.setCapability(AndroidCapabilities.ADB_EXEC_TIMEOUT, this.getAdbExecTimeout());
         desiredCapabilities.setCapability(AndroidCapabilities.NEW_COMMAND_TIMEOUT, this.getNewCommandTimeout());
         desiredCapabilities.setCapability(AndroidCapabilities.NO_RESET, this.isNoReset());
+        desiredCapabilities.setCapability(AndroidCapabilities.FULL_RESET, this.isFullReset());
 
         desiredCapabilities.setCapability(AndroidCapabilities.AUTO_WEBVIEW, this.isAutoWebview());
         desiredCapabilities.setCapability(AndroidCapabilities.AUTO_WEBVIEW_TIMEOUT, this.getAutoWebviewTimeout());
