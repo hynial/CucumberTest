@@ -25,7 +25,7 @@ public abstract class BasePage {
     protected AppiumDriver driver;
 
     public BasePage() {
-        System.out.println("init base page"); // inject, make this only one
+        System.out.println("init base page:" + Thread.currentThread().getId()); // inject, make this only one
         driver = AppiumFactory.getDriver();
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }

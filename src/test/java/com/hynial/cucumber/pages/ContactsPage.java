@@ -9,9 +9,9 @@ import lombok.Data;
 @ScenarioScoped
 @Data
 public class ContactsPage extends BasePage {
+
     @AndroidFindBy(id = "com.tencent.mm:id/c_")
     private MobileElement topTitleBand;
-
 
     @AndroidFindBy(id = "com.tencent.mm:id/e8y")
     private MobileElement bottomBand;
